@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "./;protos";
+
+import "shared.proto";
+
+message ModelUpdateRequest {
+  string model_id = 1;
+  int32 model_type = 10;
+  bytes layers_weight = 2;
+  enum TrainingStatus {
+    SUCCEEDED = 0;
+    FAILED = 1;
+  }
+  TrainingStatus status = 3;
+  int32 client_id = 5;
+  int32 batch_size = 6;
+  int32 request_counter = 7;
+  int32 total_clients_count = 8;
+  int32 client_latest_clock = 9;
+}
+
+message ModelWeights {
+  repeated bytes layers = 1;
+  int32 model_clock = 2;
+  int32 client_id = 3;
+  int32 client_latest_clock = 9;
+}
+
+message LayerWeights {
+  enum LayerWeightsType {
+    UNKNOWN = 0;
+    ONE_D = 1;
+    TWO_D = 2;
+  }
+  LayerWeightsType weight_type = 1;
+  repeated double one_d_weights = 2;
+  repeated bytes two_d_weights = 3;
+  int32 layer_rank = 4;
+}
+
+message LayerTwoDWeights {
+  repeated double weights = 1;
+}
+
+service FederatedService {
+  rpc TrainUpdateModel (ModelUpdateRequest) returns (ModelUpdateRequest);
+  rpc ChangeModeRestart (Empty) returns (Empty);
+}
+
+

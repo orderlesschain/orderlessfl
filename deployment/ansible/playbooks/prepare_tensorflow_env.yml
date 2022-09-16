@@ -1,0 +1,32 @@
+---
+- name: Installing Tensorlow env for federated server
+  hosts:
+    - nodes
+    - clients
+  tags: [ "install-tensorflow-env" ]
+  vars:
+    packages:
+      - python3-dev
+      - python3-pip
+      - python3-venv
+      - python3-testresources
+  tasks:
+    - name: Install packages
+      apt:
+        name: "{{ packages }}"
+        update_cache: yes
+    - name: Manually create the initial virtualenv
+      command:
+        cmd: python3 -m venv --system-site-packages /home/ubuntu/tensorflow-env
+      become: yes
+      become_user: "{{ lookup('env', 'REMOTE_USER') }}"
+    - name: Install pip packages
+      pip:
+        name:
+          - pip
+          - grpcio
+          - grpcio-tools
+          - numpy
+          - https://github.com/lakshayg/tensorflow-build/releases/download/tf2.4.0-ubuntu20.04-python3.8.5/tensorflow-2.4.1-cp38-cp38-linux_x86_64.whl
+          - protobuf==3.20.*
+        virtualenv: /home/ubuntu/tensorflow-env

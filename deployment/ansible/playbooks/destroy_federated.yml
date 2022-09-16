@@ -1,0 +1,17 @@
+---
+- name: Deploying federated server to the nodes and clients
+  hosts:
+    - nodes
+    - clients
+  tags: [ "deploy-federated" ]
+  vars:
+  tasks:
+    - name: Stop federatedserver
+      ansible.builtin.service:
+        name: federatedserver
+        state: stopped
+      ignore_errors: yes
+    - name: Delete all file in inventories
+      file:
+        state: absent
+        path: "{{ lookup('env', 'REMOTE_FEDERATED_SERVER_PATH') }}"

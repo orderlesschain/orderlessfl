@@ -1,0 +1,8 @@
+Round,TX Count,Success TX Count,Fail TX Count,Submission TSP,Throughput TSP,Max Latency MS,Min Latency MS,Average Latency MS,01th PCTL MS,05th PCTL MS,10th PCTL MS,25th PCTL MS,50th PCTL MS,75th PCTL MS,90th PCTL MS,95th PCTL MS,99th PCTL MS,Total Sent KB,Total Sent KB/S,Total Received KB,Total Received KB/S
+Summary,2400,2400,0,40,40,1574,949,1157,968,987,1066,1073,1170,1193,1274,1301,1376,0,0,0,0
+Summary Write,2400,2400,0,40,40,1574,949,1157,968,987,1066,1073,1170,1193,1274,1301,1376,0,0,0,0
+Summary Read,0,0,0,0,0,0,9223372036854775807,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1-getglobalmodelandsubmitpretrainedupdate-client3.csv,600,600,0,10,10,1574,949,1214,969,1066,1071,1168,1176,1272,1369,1374,1470,0,0,0,0
+1-getglobalmodelandsubmitpretrainedupdate-client0.csv,600,600,0,10,10,1373,963,1133,969,977,1001,1070,1167,1174,1270,1274,1368,0,0,0,0
+1-getglobalmodelandsubmitpretrainedupdate-client1.csv,600,600,0,10,10,1373,953,1134,966,975,993,1071,1168,1175,1270,1275,1370,0,0,0,0
+1-getglobalmodelandsubmitpretrainedupdate-client2.csv,600,600,0,10,10,1475,963,1148,968,985,1066,1072,1169,1177,1273,1277,1373,0,0,0,0

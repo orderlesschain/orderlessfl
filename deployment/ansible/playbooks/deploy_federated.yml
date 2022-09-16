@@ -1,0 +1,47 @@
+---
+- name: Deploying federated server to the nodes and clients
+  hosts:
+    - nodes
+    - clients
+  tags: [ "deploy-federated" ]
+  vars:
+  tasks:
+    - name: Stop federatedserver
+      ansible.builtin.service:
+        name: federatedserver
+        state: stopped
+      ignore_errors: yes
+    - name: Delete all file in inventories
+      file:
+        state: absent
+        path: "{{ lookup('env', 'REMOTE_FEDERATED_SERVER_PATH') }}"
+    - name: Copy systemd service file to server
+      copy:
+        src: "{{ lookup('env', 'PROJECT_ABSOLUTE_PATH') }}/deployment/service/federatedserver.service"
+        dest: /etc/systemd/system
+        owner: root
+        group: root
+    - name: Copy federated python files to the build server
+      synchronize:
+        src: "{{ lookup('env', 'PROJECT_ABSOLUTE_PATH') }}/federatedpython/"
+        dest: "{{ lookup('env', 'REMOTE_FEDERATED_SERVER_PATH') }}"
+        rsync_path: "sudo -u ubuntu rsync"
+        recursive: yes
+        delete: yes
+        rsync_opts:
+          - "--exclude=.git"
+          - "--exclude=.DS_Store"
+          - "--exclude=.idea"
+          - "--exclude=tensorflow-env/"
+      notify:
+        - Restart federatedserver
+    - name: Start federatedserver
+      ansible.builtin.service:
+        name: federatedserver
+        state: started
+        enabled: yes
+  handlers:
+    - name: Restart federatedserver
+      ansible.builtin.service:
+        name: federatedserver
+        state: restarted

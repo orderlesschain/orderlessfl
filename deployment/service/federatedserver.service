@@ -1,0 +1,14 @@
+[Unit]
+Description=The federated learning server
+After=network.target
+
+[Service]
+ExecStart=/home/ubuntu/tensorflow-env/bin/python /home/ubuntu/federated/federated_service.py
+Restart=always
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/federated/
+
+[Install]
+WantedBy=multi-user.target
+

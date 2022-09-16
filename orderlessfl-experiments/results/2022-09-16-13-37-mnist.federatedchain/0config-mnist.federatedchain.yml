@@ -1,0 +1,26 @@
+---
+targetSystem: orderlessfl
+blockTimeOutMs: 1000
+blockTransactionSize: 10
+queueTickerDurationMS: 100
+gossipNodeCount: 1
+gossipIntervalMs: 500
+transactionTimeoutSecond: 120
+totalNodeCount: 8
+totalClientCount: 4
+endorsementPolicyOrgs: 8
+proposalQueueConsumptionRateTPS: 5000
+transactionQueueConsumptionRateTPS: 10000
+contactName: mnistfederatedchaincontract
+rounds:
+  - label: Updating the models
+    #benchmarkFunctionName: getglobalmodelandtrainandsubmit
+    benchmarkFunctionName: getglobalmodelandsubmitpretrainedupdate
+    numberOfClients: 4
+    numberOfKeys: 24000
+    numberOfKeysSecond: 4
+    #totalTransactions: 100
+    transactionsSendDurationSecond: 60
+    totalSubmissionRate: 40
+    crdtObjectCount: 1
+    reportImportance: true
