@@ -44,19 +44,6 @@ class FederatedTraining:
         ss, acc = model.evaluate(self.test_images, self.test_labels, verbose=0)
         print("accuracy AFTER training: {:5.2f}%".format(100 * acc), flush=True)
         trained_model_diff = FederatedTraining.create_delta_weights(model.get_weights(), server_weights)
-        # print("Model Clock " + str(model_clock), flush=True)
-
-        # model3 = FederatedTraining.create_model()
-        # # ss, acc = model3.evaluate(self.test_images, self.test_labels, verbose=0)
-        # # print("Model, accuracy: {:5.2f}%".format(100 * acc), flush=True)
-        #
-        # # new_weight = FederatedTraining.add_delta_weights(server_weights, trained_model_diff)
-        # new_weight = FederatedTraining.add_delta_weights(trained_model_diff, server_weights)
-        #
-        # model3.set_weights(new_weight)
-        #
-        # ss, acc = model3.evaluate(self.test_images, self.test_labels, verbose=0)
-        # print("Model, accuracy: {:5.2f}%".format(100 * acc), flush=True)
 
         return FederatedTraining.convert_model_weights_to_proto(trained_model_diff, model_clock,
                                                                 update_request.client_id,
@@ -134,8 +121,6 @@ class FederatedTraining:
             proto_converted_model.layers.append(layer_weights.SerializeToString())
             index += 1
         string_weights = proto_converted_model.SerializeToString()
-        # print("Client Id " + str(proto_converted_model.client_id), flush=True)
-
         return string_weights
 
     @staticmethod
