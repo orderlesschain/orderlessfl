@@ -2,7 +2,7 @@ terraform {
   required_providers {
     opennebula = {
       source  = "OpenNebula/opennebula"
-      version = "0.5.0"
+      version = "~> 1.0"
     }
   }
 }
@@ -19,3 +19,4 @@ provider "opennebula" {
   username      = var.opennebula_username
   password      = var.opennebula_password
 }
+
