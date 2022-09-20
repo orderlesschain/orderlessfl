@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 source "${PROJECT_ABSOLUTE_PATH}"/env
+export TF_VAR_opennebula_endpoint="$OPENNEBULA_ENDPOINT"
+export TF_VAR_opennebula_flow_endpoint="$OPENNEBULA_FLOW_ENDPOINT"
 export TF_VAR_opennebula_username="$OPENNEBULA_USERNAME"
 export TF_VAR_opennebula_password="$OPENNEBULA_PASSWORD"
 
